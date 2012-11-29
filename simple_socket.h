@@ -76,38 +76,38 @@ int socket_writev(int fd, socket_iovec* data_array, int count);
 
 int socket_readv(int fd, socket_iovec* data_array, int count);
 
-void socket_select();
+int socket_listen(int fd, int backlog);
 
-void socket_poll();
+int socket_accept(int fd, struct sockaddr* client);
 
-int socket_listen();
+int socket_bind(int fd, const struct sockaddr* address);
 
-int socket_accept();
-
-int socket_bind();
-
-int socket_connect();
+int socket_connect(int fd, const struct sockaddr* server);
 
 int socket_unblock(int fd);
 
 int socket_block(int fd);
 
+int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout);
+
+int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout);
+
 /*
-int socket_delay();
+int socket_tcpdelay(int fd);
 
-int socket_no_delay();
+int socket_tcpnodelay(int fd);
 */
-int socket_set_option();
+int socket_setoption(int fd, int level, int optname, void* optval, socklen_t* optlen);
 
-int socket_get_option();
+int socket_getoption(int fd, int level, int optname, void* optval, socklen_t* optlen);
 
-uint16_t simple_ntohs();
+uint16_t simple_ntohs(uint16_t);
 
-uint16_t simple_htons();
+uint16_t simple_htons(uint16_t);
 
-uint32_t simple_htonl();
+uint32_t simple_htonl(uint32_t);
 
-uint32_t simple_ntohl();
+uint32_t simple_ntohl(uint32_t);
 
 #ifdef	__cplusplus
 }

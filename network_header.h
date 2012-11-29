@@ -34,5 +34,7 @@
     #define SOCKET_BAD -1
 #endif
 
+#define IS_INTERRUPTED (socket_errno == EINTR)
+
 #endif
 

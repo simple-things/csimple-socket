@@ -89,9 +89,10 @@ int socket_unblock(int fd);
 int socket_block(int fd);
 
 int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout);
-
+/*
+WSAPoll is buggy, see http://daniel.haxx.se/blog/2012/10/10/wsapoll-is-broken/, and mingw/cygwin use select to implement poll. 
 int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout);
-
+*/
 /*
 int socket_tcpdelay(int fd);
 

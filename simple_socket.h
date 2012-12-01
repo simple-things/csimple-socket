@@ -33,9 +33,9 @@ int socket_send(int fd, const char* data, int length, int flag);
 
 int socket_recv(int fd, char* buffer, int length, int flag);
 
-int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr);
+int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr, int addrlen);
 
-int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr);
+int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr, int* addrlen);
 
 /* Data block for vector input, match struct iovec*/
 typedef struct{
@@ -51,7 +51,7 @@ typedef struct{
 typedef struct {
 #if defined(_MSWINDOWS_)
 	struct sockaddr*	name;
-	int					name_length;
+	socklen_t			name_length;
 	socket_iovec*		buffers;
 	unsigned long		buffer_count;
 	unsigned long		control_length;
@@ -72,35 +72,38 @@ int socket_sendmsg(int fd, socket_message* message, int flags);
 
 int socket_recvmsg(int fd, socket_message* message, int flags);
 
-int socket_writev(int fd, socket_iovec* data_array, int count);
+int socket_writev(int fd, const socket_iovec* data_array, int count);
 
 int socket_readv(int fd, socket_iovec* data_array, int count);
 
 int socket_listen(int fd, int backlog);
 
-int socket_accept(int fd, struct sockaddr* client);
+int socket_accept(int fd, struct sockaddr* client, int* addrlen);
 
-int socket_bind(int fd, const struct sockaddr* address);
+int socket_bind(int fd, const struct sockaddr* address, int addrlen);
 
-int socket_connect(int fd, const struct sockaddr* server);
+int socket_connect(int fd, const struct sockaddr* server, int addrlen);
 
 int socket_unblock(int fd);
 
 int socket_block(int fd);
 
-int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout);
-/*
-WSAPoll is buggy, see http://daniel.haxx.se/blog/2012/10/10/wsapoll-is-broken/, and mingw/cygwin use select to implement poll. 
-int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout);
-*/
 /*
 int socket_tcpdelay(int fd);
 
 int socket_tcpnodelay(int fd);
 */
-int socket_setoption(int fd, int level, int optname, void* optval, socklen_t* optlen);
+int socket_setoption(int fd, int level, int optname, const void* optval, socklen_t* optlen);
 
 int socket_getoption(int fd, int level, int optname, void* optval, socklen_t* optlen);
+
+int socket_getlocalip(int fd, struct sockaddr* local, int* addrlen);
+
+int socket_getremoteip(int fd, struct sockaddr* remote, int* addrlen);
+
+int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout);
+
+int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout);
 
 uint16_t simple_ntohs(uint16_t);
 

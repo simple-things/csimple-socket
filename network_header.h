@@ -14,6 +14,7 @@
 	#define SHUT_RD SD_RECEIVE
 	#define SHUT_WR SD_SEND
 	#define SHUT_RDWR SD_BOTH
+typedef unsigned long in_addr_t ;
 #else
     #include <sys/param.h>
     #include <sys/socket.h>

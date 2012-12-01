@@ -120,13 +120,12 @@ int socket_recv(int fd, char* buffer, int length, int flag){
 	return recv(fd, buffer, length, flag);
 }
 
-int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr){
-	return sendto(fd, data, length, flag, dest_addr, sizeof(*dest_addr));
+int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr, int addrlen){
+	return sendto(fd, data, length, flag, dest_addr, addrlen);
 }
 
-int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr){
-	int size = sizeof(*src_addr);
-	return recvfrom(fd, buffer, length, flag, src_addr, &size);
+int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr, int* addrlen){
+	return recvfrom(fd, buffer, length, flag, src_addr, addrlen);
 }
 
 
@@ -145,7 +144,7 @@ int socket_readv(int fd, socket_iovec* vectors, int count){
 #endif
 }
 
-int socket_writev(int fd, socket_iovec* vectors, int count){
+int socket_writev(int fd, const socket_iovec* vectors, int count){
 #if defined(_MSWINDOWS_)
     DWORD sent_bytes = 0;
     int ret =  WSASend(fd, (WSABUF*)vectors, count, &sent_bytes, 0, NULL, NULL);
@@ -235,17 +234,16 @@ int socket_listen(int fd, int backlog){
 	return listen(fd, backlog);
 }
 
-int socket_accept(int fd, struct sockaddr* client){
-	int len;
-	return accept(fd, client, &len);
+int socket_accept(int fd, struct sockaddr* client, int* addrlen){
+	return accept(fd, client, addrlen);
 }
 
-int socket_bind(int fd, const struct sockaddr* address){
-	return bind(fd, address, sizeof(*address));
+int socket_bind(int fd, const struct sockaddr* address, int addrlen){
+	return bind(fd, address, addrlen);
 }
 
-int socket_connect(int fd, const struct sockaddr* server){
-	return connect(fd, server, sizeof(*server));
+int socket_connect(int fd, const struct sockaddr* server, int addrlen){
+	return connect(fd, server, addrlen);
 }
 
 uint16_t simple_ntohs(uint16_t src){
@@ -264,7 +262,7 @@ uint32_t simple_ntohl(uint32_t src){
 	return ntohl(src);
 }
 
-int socket_setoption(int fd, int level, int optname, void* optval, socklen_t* optlen){
+int socket_setoption(int fd, int level, int optname, const void* optval, socklen_t* optlen){
 #if defined(_MSWINDOWS_)
 	return setsockopt(fd, level, optname, (const char*)optval, *optlen);
 #else 
@@ -276,6 +274,26 @@ int socket_getoption(int fd, int level, int optname, void* optval, socklen_t* op
 	return getsockopt(fd, level, optname, (char*)optval, optlen);
 }
 
+int socket_getlocalip(int fd, struct sockaddr* local, int* addrlen){
+	return getsockname(fd, local, addrlen);
+};
+
+int socket_getremoteip(int fd, struct sockaddr* remote, int* addrlen){
+	int len = sizeof(*remote);
+	return getpeername(fd, remote, addrlen);
+}
+
 int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout){
 	return select(maxfd, readset, writeset, exceptset, timeout);
+}
+
+/*
+WSAPoll(from Vista) is buggy, see http://daniel.haxx.se/blog/2012/10/10/wsapoll-is-broken/, and mingw/cygwin use select to implement poll. 
+*/
+int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout){
+#if defined(_MSWINDOWS_)
+	return 0;
+#else
+	return poll(fds, nfds, timeout);
+#endif
 }

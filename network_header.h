@@ -38,6 +38,7 @@ typedef unsigned long in_addr_t ;
     #include <pwd.h>
     #include <unistd.h>
 	#include <signal.h>
+	#include <poll.h>
     #define socket_errno      (errno)
     #define SOCKET_BAD -1
 #endif

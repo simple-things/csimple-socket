@@ -1,7 +1,7 @@
 #include "simple-internet.h"
 
 const char* ipv4_ntoa(struct in_addr addr){
-	return inet_ntoa(addr);
+	return (const char*)inet_ntoa(addr);
 }
 //copy from cygwin
 int ipv4_aton(const char* addr, struct in_addr* result){
@@ -112,7 +112,7 @@ in_addr_t ipv4_addr(const char* addr){
 }
 
 const char* ipv4_ntop(const void* addr, char* result, int resultlen){
-	return inet_ntop(AF_INET,  (void*)addr, result, resultlen);
+	return (const char*)inet_ntop(AF_INET,  (void*)addr, result, resultlen);
 }
 
 int ipv4_pton(const char* addr, void* result){
@@ -120,7 +120,7 @@ int ipv4_pton(const char* addr, void* result){
 }
 
 const char* ipv6_ntop(const void* addr, char* result, int resultlen){
-	return inet_ntop(AF_INET6, (void*)addr, result, resultlen);
+	return (const char*)inet_ntop(AF_INET6, (void*)addr, result, resultlen);
 }
 
 int ipv6_pton(const char* addr, void* result){
@@ -128,11 +128,11 @@ int ipv6_pton(const char* addr, void* result){
 }
 
 const struct hostent* ipv4_gethostbyname(const char* hostname){
-	return gethostbyname(hostname);
+	return (const struct hostent*)gethostbyname(hostname);
 }
 
 const struct hostent* ipv4_gethostbyaddr(const char* addr){
-	return gethostbyaddr(addr, 4, AF_INET);
+	return (const struct hostent*)gethostbyaddr(addr, 4, AF_INET);
 }
 
 int ip_getaddrinfo(const char* hostname, const char* service, 
@@ -146,9 +146,9 @@ void ip_freeaddrinfo(struct addrinfo* addrinfos){
 
 const char* ip_gai_strerror(int error){
 #if defined(_MSWINDOWS_)
-	return gai_strerrorA(error);
+	return (const char*)gai_strerrorA(error);
 #else
-	return gai_strerror(error);
+	return (const char*)gai_strerror(error);
 #endif
 }
 

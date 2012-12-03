@@ -97,9 +97,9 @@ int socket_setoption(int fd, int level, int optname, const void* optval, socklen
 
 int socket_getoption(int fd, int level, int optname, void* optval, socklen_t* optlen);
 
-int socket_getlocalip(int fd, struct sockaddr* local, int* addrlen);
+int socket_getlocalip(int fd, struct sockaddr* local, socklen_t* addrlen);
 
-int socket_getremoteip(int fd, struct sockaddr* remote, int* addrlen);
+int socket_getremoteip(int fd, struct sockaddr* remote, socklen_t* addrlen);
 
 int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout);
 

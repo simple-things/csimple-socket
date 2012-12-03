@@ -263,23 +263,18 @@ uint32_t simple_ntohl(uint32_t src){
 }
 
 int socket_setoption(int fd, int level, int optname, const void* optval, socklen_t* optlen){
-#if defined(_MSWINDOWS_)
 	return setsockopt(fd, level, optname, (const char*)optval, *optlen);
-#else 
-	return setsockopt(fd, level, optname, optval, optlen);
-#endif	
 }
 
 int socket_getoption(int fd, int level, int optname, void* optval, socklen_t* optlen){
 	return getsockopt(fd, level, optname, (char*)optval, optlen);
 }
 
-int socket_getlocalip(int fd, struct sockaddr* local, int* addrlen){
+int socket_getlocalip(int fd, struct sockaddr* local, socklen_t* addrlen){
 	return getsockname(fd, local, addrlen);
 };
 
-int socket_getremoteip(int fd, struct sockaddr* remote, int* addrlen){
-	int len = sizeof(*remote);
+int socket_getremoteip(int fd, struct sockaddr* remote, socklen_t* addrlen){
 	return getpeername(fd, remote, addrlen);
 }
 

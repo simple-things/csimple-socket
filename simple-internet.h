@@ -37,10 +37,6 @@ void ip_freeaddrinfo(struct addrinfo* addrinfos);
 
 const char* ip_gai_strerror(int error);
 
-const struct servent* ip_getservbyname(const char* servicename, const char* protocolname);
-
-const struct servent* ip_getservbyport(int port, const char* protocolname);
-
 #ifdef	__cplusplus
 }
 #endif

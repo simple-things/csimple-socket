@@ -148,14 +148,7 @@ const char* ip_gai_strerror(int error){
 #if defined(_MSWINDOWS_)
 	return gai_strerrorA(error);
 #else
-	return gai_strerror(error):
+	return gai_strerror(error);
 #endif
 }
 
-const struct servent* ip_getservbyname(const char* servicename, const char* protocolname){
-	return getservbyname(servicename, protocolname);
-}
-
-const struct servent* ip_getservbyport(int port, const char* protocolname){
-	return getservbyport(port, protocolname);
-}

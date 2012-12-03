@@ -48,7 +48,7 @@ void socket_env_init(){
 
 #else
 
-int socket_env_init(){
+void socket_env_init(){
 	signal(SIGPIPE, SIG_IGN);
 }
 

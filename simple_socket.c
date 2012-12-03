@@ -120,11 +120,11 @@ int socket_recv(int fd, char* buffer, int length, int flag){
 	return recv(fd, buffer, length, flag);
 }
 
-int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr, int addrlen){
+int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr, socklen_t addrlen){
 	return sendto(fd, data, length, flag, dest_addr, addrlen);
 }
 
-int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr, int* addrlen){
+int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr, socklen_t* addrlen){
 	return recvfrom(fd, buffer, length, flag, src_addr, addrlen);
 }
 
@@ -234,15 +234,15 @@ int socket_listen(int fd, int backlog){
 	return listen(fd, backlog);
 }
 
-int socket_accept(int fd, struct sockaddr* client, int* addrlen){
+int socket_accept(int fd, struct sockaddr* client, socklen_t* addrlen){
 	return accept(fd, client, addrlen);
 }
 
-int socket_bind(int fd, const struct sockaddr* address, int addrlen){
+int socket_bind(int fd, const struct sockaddr* address, socklen_t addrlen){
 	return bind(fd, address, addrlen);
 }
 
-int socket_connect(int fd, const struct sockaddr* server, int addrlen){
+int socket_connect(int fd, const struct sockaddr* server, socklen_t addrlen){
 	return connect(fd, server, addrlen);
 }
 

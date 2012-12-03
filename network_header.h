@@ -30,6 +30,9 @@ typedef unsigned long in_addr_t ;
 
     #include <netinet/in.h>
     #include <netinet/tcp.h>
+
+	#include <arpa/inet.h>
+
     #include <fcntl.h>
 
     #include <ctype.h>

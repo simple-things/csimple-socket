@@ -33,9 +33,9 @@ int socket_send(int fd, const char* data, int length, int flag);
 
 int socket_recv(int fd, char* buffer, int length, int flag);
 
-int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr, int addrlen);
+int socket_sendto(int fd, const char* data, int length, int flag, const struct sockaddr *dest_addr, socklen_t addrlen);
 
-int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr, int* addrlen);
+int socket_recvfrom(int fd, char *buffer, int length, int flag, struct sockaddr *src_addr, socklen_t* addrlen);
 
 /* Data block for vector input, match struct iovec*/
 typedef struct{
@@ -78,11 +78,11 @@ int socket_readv(int fd, socket_iovec* data_array, int count);
 
 int socket_listen(int fd, int backlog);
 
-int socket_accept(int fd, struct sockaddr* client, int* addrlen);
+int socket_accept(int fd, struct sockaddr* client, socklen_t* addrlen);
 
-int socket_bind(int fd, const struct sockaddr* address, int addrlen);
+int socket_bind(int fd, const struct sockaddr* address, socklen_t addrlen);
 
-int socket_connect(int fd, const struct sockaddr* server, int addrlen);
+int socket_connect(int fd, const struct sockaddr* server, socklen_t addrlen);
 
 int socket_unblock(int fd);
 

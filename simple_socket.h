@@ -72,9 +72,9 @@ int socket_sendmsg(int fd, socket_message* message, int flags);
 
 int socket_recvmsg(int fd, socket_message* message, int flags);
 
-int socket_writev(int fd, const socket_iovec* data_array, int count);
+int socket_writev(int fd, const socket_iovec* dataarray, int count);
 
-int socket_readv(int fd, socket_iovec* data_array, int count);
+int socket_readv(int fd, socket_iovec* dataarray, int count);
 
 int socket_listen(int fd, int backlog);
 

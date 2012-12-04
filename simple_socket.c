@@ -1,10 +1,4 @@
 #include <ctype.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <malloc.h>
-#include <assert.h>
 
 #include "simple_socket.h"
 
@@ -23,9 +17,8 @@ void socket_env_init(){
 	static int initialized = 0;
     WSADATA status;
 	DWORD temp;
-	int ret;
 	int fd;
-	GUID WSARecvMsg_GUID = WSAID_WSARECVMSG;
+	GUID WSARecvMsg_GUID = {0xf689d7c8,0x6f1f,0x436b,{0x8a,0x53,0xe5,0x4f,0xe3,0x51,0xc3,0x22}};
     if(initialized){
         return;
 	}
@@ -35,13 +28,10 @@ void socket_env_init(){
     WSAStartup(MAKEWORD(2,2), &status);
     atexit(socket_cleanup);
 	fd = socket_ipv4(SOCKET_TCP);
-	ret = WSAIoctl(fd, SIO_GET_EXTENSION_FUNCTION_POINTER,
+	WSAIoctl(fd, SIO_GET_EXTENSION_FUNCTION_POINTER,
             &WSARecvMsg_GUID, sizeof(WSARecvMsg_GUID),
             &WSARecvMsg, sizeof(void*), &temp, NULL, NULL);
 
-/*	if(ret != 0) {
-		printf("load recvmsg fail %d ret error %d\n", ret, SOCKET_ERROR);
-    }*/
 	socket_close(fd);
     started = 1;
 }
@@ -279,7 +269,11 @@ int socket_getremoteip(int fd, struct sockaddr* remote, socklen_t* addrlen){
 }
 
 int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout){
+#if defined(_MSWINDOWS_)
 	return select(maxfd, readset, writeset, exceptset, timeout);
+#else
+	return select(maxfd, readset, writeset, exceptset, (struct timeval*)timeout);
+#endif
 }
 
 /*

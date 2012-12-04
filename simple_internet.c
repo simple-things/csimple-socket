@@ -1,4 +1,4 @@
-#include "simple-internet.h"
+#include "simple_internet.h"
 
 const char* ipv4_ntoa(struct in_addr addr){
 	return (const char*)inet_ntoa(addr);

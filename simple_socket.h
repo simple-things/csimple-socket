@@ -84,19 +84,6 @@ int socket_bind(int fd, const struct sockaddr* address, socklen_t addrlen);
 
 int socket_connect(int fd, const struct sockaddr* server, socklen_t addrlen);
 
-int socket_unblock(int fd);
-
-int socket_block(int fd);
-
-/*
-int socket_tcpdelay(int fd);
-
-int socket_tcpnodelay(int fd);
-*/
-int socket_setoption(int fd, int level, int optname, const void* optval, socklen_t* optlen);
-
-int socket_getoption(int fd, int level, int optname, void* optval, socklen_t* optlen);
-
 int socket_getlocalip(int fd, struct sockaddr* local, socklen_t* addrlen);
 
 int socket_getremoteip(int fd, struct sockaddr* remote, socklen_t* addrlen);

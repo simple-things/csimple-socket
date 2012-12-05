@@ -1,5 +1,5 @@
-#ifndef __NETWORK_HEADER_H
-#define __NETWORK_HEADER_H
+#ifndef __CNETWORK_HEADER_H
+#define __CNETWORK_HEADER_H
 
 #include "simple_platform.h"
 

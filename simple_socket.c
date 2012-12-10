@@ -213,22 +213,6 @@ int socket_connect(int fd, const struct sockaddr* server, socklen_t addrlen){
 	return connect(fd, server, addrlen);
 }
 
-uint16_t simple_ntohs(uint16_t src){
-	return ntohs(src);
-}
-
-uint16_t simple_htons(uint16_t src){
-	return htons(src);
-}
-
-uint32_t simple_htonl(uint32_t src){
-	return htonl(src);
-}
-
-uint32_t simple_ntohl(uint32_t src){
-	return ntohl(src);
-}
-
 int socket_getlocalip(int fd, struct sockaddr* local, socklen_t* addrlen){
 	return getsockname(fd, local, addrlen);
 };

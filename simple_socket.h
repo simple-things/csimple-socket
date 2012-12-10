@@ -2,7 +2,6 @@
 #define __CSIMPLE_SOCKET_H
 
 //todo add usage comment for every function.
-#include <stdint.h>
 
 #include "simple_platform.h"
 #include "network_header.h"
@@ -90,15 +89,7 @@ int socket_getremoteip(int fd, struct sockaddr* remote, socklen_t* addrlen);
 
 int socket_select(int maxfd, fd_set* readset, fd_set* writeset, fd_set* exceptset, const struct timeval* timeout);
 
-int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout);
-
-uint16_t simple_ntohs(uint16_t);
-
-uint16_t simple_htons(uint16_t);
-
-uint32_t simple_htonl(uint32_t);
-
-uint32_t simple_ntohl(uint32_t);
+//int socket_poll(struct pollfd* fds, unsigned long nfds, int timeout);
 
 #ifdef	__cplusplus
 }

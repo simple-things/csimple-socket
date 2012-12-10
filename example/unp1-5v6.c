@@ -10,7 +10,6 @@
 int main(int argc, char const *argv[]) {
 	int fd;
 	char buffer[MAX_LINE+1];
-	int n;
 	int port = 13;
 	int client;
 	if (argc < 2) {

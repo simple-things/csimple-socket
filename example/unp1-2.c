@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "../simple_socket.h"
+#include "../socket_helper.h"
 
 #define MAX_LINE 128
 

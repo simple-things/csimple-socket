@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
 
 #include "../simple_socket.h"
 #include "../socket_helper.h"

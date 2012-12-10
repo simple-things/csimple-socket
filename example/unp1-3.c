@@ -15,11 +15,11 @@ int main(int argc, char const *argv[]) {
 	socket_env_init();
 	fd = socket_ipv6(SOCKET_TCP);
 	if(argc == 3) {
-		port = atoi(argv2);
+		port = atoi(argv[2]);
 	}
 	if (simple_connect(fd, argv[1], port) != 0) {
 		printf("server connect failed\n");
-		
+		return 0;
 	}
 
 	while( (n=socket_recv(fd, buffer, MAX_LINE, 0)) > 0){

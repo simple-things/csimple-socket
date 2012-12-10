@@ -4,6 +4,7 @@
 //most copy from unp
 
 #include <stdint.h>
+#include <string.h>
 
 #include "simple_platform.h"
 #include "network_header.h"

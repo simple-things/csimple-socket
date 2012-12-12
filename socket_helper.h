@@ -35,6 +35,10 @@ int simple_bind(int fd, const char* address, int port);
 
 int simple_accept(int fd);
 
+int simple_pton(const char* addr, void* result);
+
+char* simple_ntop(const void* addr, char* outbuffer, int bufferlen);
+
 #define	simple_bzero(ptr,n)	memset(ptr, 0, n)
 
 #ifdef	__cplusplus

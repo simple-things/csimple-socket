@@ -111,16 +111,16 @@ in_addr_t ipv4_addr(const char* addr){
 	return inet_addr(addr);
 }
 
-char* ipv4_ntop(const void* addr, char* outbuffer, int bufferlen){
-	return inet_ntop(AF_INET,  (void*)addr, outbuffer, bufferlen);
+const char* ipv4_ntop(const void* addr, char* outbuffer, int bufferlen){
+	return (const char*)inet_ntop(AF_INET,  (void*)addr, outbuffer, bufferlen);
 }
 
 int ipv4_pton(const char* addr, void* result){
 	return inet_pton(AF_INET, addr, result);
 }
 
-char* ipv6_ntop(const void* addr, char* outbuffer, int bufferlen){
-	return inet_ntop(AF_INET6, (void*)addr, outbuffer, bufferlen);
+const char* ipv6_ntop(const void* addr, char* outbuffer, int bufferlen){
+	return (const char*)inet_ntop(AF_INET6, (void*)addr, outbuffer, bufferlen);
 }
 
 int ipv6_pton(const char* addr, void* result){

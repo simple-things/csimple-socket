@@ -19,11 +19,11 @@ int ipv4_aton(const char* addr, struct in_addr* result);
 
 in_addr_t ipv4_addr(const char* addr);
 
-char* ipv4_ntop(const void* addr, char* outbuffer, int bufferlen);
+const char* ipv4_ntop(const void* addr, char* outbuffer, int bufferlen);
 
 int ipv4_pton(const char* addr, void* result);
 
-char* ipv6_ntop(const void* addr, char* outbuffer, int bufferlen);
+const char* ipv6_ntop(const void* addr, char* outbuffer, int bufferlen);
 
 int ipv6_pton(const char* addr, void* result);
 

@@ -86,7 +86,7 @@ int simple_pton(const char* addr, void* result){
 	}
 }
 
-char* simple_ntop(const void* addr, char* outbuffer, int bufferlen){
+const char* simple_ntop(const void* addr, char* outbuffer, int bufferlen){
 	struct sockaddr_storage* sockaddr = (struct sockaddr_storage*)addr;
 	if(SOCKSTORAGE_IS_IPV4((*sockaddr))){
 		return ipv4_ntop(addr, outbuffer, bufferlen);

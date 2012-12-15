@@ -44,6 +44,10 @@ void socket_env_init(){
 
 #endif
 
+int socket_origin(int family, int type, int protocol){
+	return (int)socket(family, type, protocol);
+}
+
 static int socket_open(int family, SOCKET_TYPE type){
     int sock_type, protocol;
     if(type == SOCKET_TCP) {
@@ -57,7 +61,7 @@ static int socket_open(int family, SOCKET_TYPE type){
         protocol = 0;
     }
 
-    return (int)socket(family, sock_type, protocol);
+    return socket_origin(family, sock_type, protocol);
 }
 int socket_ipv4(SOCKET_TYPE type){
 	return socket_open(AF_INET, type);

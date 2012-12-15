@@ -20,6 +20,8 @@ typedef enum{
 	SOCKET_RAW
 }SOCKET_TYPE;
 
+int socket_origin(int family, int type, int protocol);
+
 int socket_ipv4(SOCKET_TYPE type);
 
 int socket_ipv6(SOCKET_TYPE type);

@@ -4,9 +4,9 @@
 
 void simple_gettimeofday(struct timeval* time, void* local);
 
-#define CHAR_IS_IPV6(addr) (strchr(addr, ':') != NULL)
-#define SOCKSTORAGE_IS_IPV4(addr) (addr.ss_family == AF_INET)
-#define SOCK_IS_IPV4(addr) (addr.sa_family == AF_INET)
+int simple_socketwithaddrinfo(struct addrinfo* addr){
+	return socket_origin(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
+}
 
 int ipv4_addrinit(struct sockaddr* addr, const char* address, int port){
 	struct sockaddr_in* addr4 = (struct sockaddr_in*)addr;
@@ -31,7 +31,7 @@ int ipv6_addrinit(struct sockaddr* addr, const char* address, int port){
 }
 
 int simple_addrinit(struct sockaddr* addr, const char* address, int port){
-	if(CHAR_IS_IPV6(address)){
+	if(STRING_IS_IPV6(address)){
 		return ipv6_addrinit(addr, address, port);
 	}else{
 		return ipv4_addrinit(addr, address, port);
@@ -79,7 +79,7 @@ int simple_accept(int fd){
 }
 
 int simple_pton(const char* addr, void* result){
-	if(CHAR_IS_IPV6(addr)){
+	if(STRING_IS_IPV6(addr)){
 		return ipv6_pton(addr, result);
 	}else{
 		return ipv4_pton(addr, result);
@@ -87,12 +87,19 @@ int simple_pton(const char* addr, void* result){
 }
 
 const char* simple_ntop(const void* addr, char* outbuffer, int bufferlen){
-	struct sockaddr_storage* sockaddr = (struct sockaddr_storage*)addr;
-	if(SOCKSTORAGE_IS_IPV4((*sockaddr))){
+	if(SOCK_IS_IPV4(((struct sockaddr*)addr))){
 		return ipv4_ntop(addr, outbuffer, bufferlen);
 	}else{
 		return ipv6_ntop(addr, outbuffer, bufferlen);
 	}
+}
+
+int simple_connectwithaddrinfo(int fd, const struct addrinfo* addr){
+	return socket_connect(fd, addr->ai_addr, addr->ai_addrlen);
+}
+
+int simple_sendtowithaddrinfo(int fd, const char* data, int length, int flag, const struct addrinfo* addr){
+	return socket_sendto(fd, data, length, flag, addr->ai_addr, addr->ai_addrlen);
 }
 
 //-----------------

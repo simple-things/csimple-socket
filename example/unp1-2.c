@@ -28,8 +28,9 @@ int main(int argc, char const *argv[]) {
 	while( (n=socket_recv(fd, buffer, MAX_LINE, 0)) > 0) {
 		buffer[n] = '\0';
 		if (fputs(buffer, stdout) == EOF) {
-			printf("output error\n");
+			printf("output error!\n");
 		}
 	}
 	return 0;
 }
+
